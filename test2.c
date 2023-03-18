@@ -1,3 +1,6 @@
+//Edrico Putra Pramana
+//LB20 - 2602078133
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -27,21 +30,22 @@ void reverseTraversal(struct vertice *head){
 }
 
 struct vertice *createNode(int value){
-    struct vertice *newnode = malloc(sizeof(struct vertice));
-    newnode->x=value; newnode->greater=NULL; newnode->lower=NULL;
-    data_count++;
-    return newnode;
+  struct vertice *newnode = malloc(sizeof(struct vertice));
+  newnode->x=value; newnode->greater=NULL; newnode->lower=NULL;
+  data_count++;
+  return newnode;
 }
 
 void addValue(int value){
-  struct vertice *newnode = malloc(sizeof(struct vertice));
   if(data_count==0){
     root = createNode(value);
     return;
   }
-  newnode = createNode(value);
+
+  struct vertice *newnode = createNode(value);
   struct vertice *curr = root;
   struct vertice *parent, *next;
+
   while(true){
     parent = curr;
     if(curr->x > value){
@@ -51,7 +55,8 @@ void addValue(int value){
         data_count++;
         return;
       }
-    }else{
+    }
+    else{
       curr = curr->greater;
       if(curr==NULL){
         parent->greater = newnode; parent->greater->lower = NULL; parent->greater->greater = NULL;
@@ -62,12 +67,43 @@ void addValue(int value){
   }
 }
 
+void search_valueInTree(int search_value){
+  bool found = false;
+  struct vertice *curr = root;
+  int i = 0;
+  while(true){
+    if(curr == NULL){
+      break;
+    }
+    i++;
+    printf("| %d | -> ", curr->x);
+    
+    if(curr->x == search_value){
+      printf("<Item Found>\n");
+      printf("Total loops of search : %d\n", i);
+      found = true;
+      return;
+    }
+
+    if(search_value>curr->x){
+      curr = curr->greater;
+    }else if(search_value<curr->x){
+      curr = curr->lower;
+    }
+  }
+  if(!found){
+    printf("Item doesn't exist in the Tree\n");
+    return;
+  }
+}
+
 void print_menu(){
   printf("====================<Main Menu>====================\n");
   printf("1. Add Value to the Binary Tree\n");
   printf("2. Print in order from the LARGEST to SMALLEST\n");
   printf("3. Print in order from the SMALLEST to the LARGEST\n");
-  printf("4. Exit the Program\n");
+  printf("4. Search Value in the Tree\n");
+  printf("5. Exit the Program\n");
   printf(">>");
 }
 
@@ -79,7 +115,7 @@ void main_menu(){
       int input_choice;
       while(true){
         system("cls");
-        printf("Value Input\n");
+        printf("==========Value Input==========\n");
         printf("1. Random System Input (0 - 150)\n2. User Inputted Value\n>>");
         scanf("%d", &input_choice);
         if(input_choice==1 || input_choice==2){
@@ -98,20 +134,63 @@ void main_menu(){
       addValue(value);
       printf("\nInputted Value: %d\n", value);
       system("pause");system("cls");
-    }else if(ch==2){
+    }
+    
+    else if(ch==2){
       system("cls");
       printf("Here's the tree sorted L to S:\n");
-      reverseTraversal(root);printf("<NULL>\n");
+      reverseTraversal(root);printf("<NULL>\n\n");
       system("pause");
       system("cls");
-    }else if(ch==3){
+    }
+    
+    else if(ch==3){
       system("cls");
       printf("Here's the tree sorted S to L:\n");
-      inorderTraversal(root);printf("<NULL>\n");
+      inorderTraversal(root);printf("<NULL>\n\n");
       system("pause");
       system("cls");
-    }else if(ch==4){
-      printf("\nThankyou for using the program!\n");
+    }
+    
+    else if(ch==4){
+      system("cls");
+      int search_choice;
+      while(true){
+        system("cls");
+        printf("==========Value Input==========\n");
+        printf("1. Random System Input (0 - 150)\n2. User Inputted Value\n>>");
+        scanf("%d", &search_choice);
+        if(search_choice==1 || search_choice==2){
+          break;
+        }
+        else{
+          printf("Invalid Input\n");
+        }
+      }
+
+      int input_value;
+      if(search_choice==1){
+        input_value = rand()%150;
+        system("cls");
+      }
+      else{
+        printf("Input the value to Search: ");
+        scanf("%d", &input_value);
+        system("cls");
+      }
+
+      printf("Inputted Value : %d\n\n", input_value);
+      search_valueInTree(input_value);
+      printf("\n");
+      system("pause");
+      system("cls");
+    }
+
+    else if(ch==5){
+      system("cls");
+      printf("========================================");
+      printf("\n||  Thankyou for using the program !  ||\n");
+      printf("========================================");
       exit(0);
     }else{
       system("cls");
