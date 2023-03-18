@@ -13,7 +13,7 @@ struct vertice{ //node atau point yang akan digunakan dalam kode
 
 struct vertice *root; int data_count=0; //variabel root -> item pertama dalam tree, data_count -> jumlah data/leaf yang sudah diinput
 
-int random_input(){
+int random_input(){ //fungsi yang me-return nilai positif kurang dari sama dengan 200
   int value = rand()%200;
   return value;
 }
