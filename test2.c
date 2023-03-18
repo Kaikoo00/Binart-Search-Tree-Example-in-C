@@ -1,6 +1,3 @@
-//Edrico Putra Pramana
-//LB20 - 2602078133
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -12,6 +9,11 @@ struct vertice{
 };
 
 struct vertice *root; int data_count=0;
+
+int random_input(){
+  int value = rand()%200;
+  return value;
+}
 
 void inorderTraversal(struct vertice* head) {
   if (head == NULL) return;
@@ -126,8 +128,9 @@ void main_menu(){
       }
       int value;
       if(input_choice==1){
-        value=rand()%150;
-      }else{
+        value=random_input();
+      }
+      else{
         printf("Input the Value : ");
         scanf("%d", &value);
       }
@@ -170,7 +173,7 @@ void main_menu(){
 
       int input_value;
       if(search_choice==1){
-        input_value = rand()%150;
+        input_value = random_input();
         system("cls");
       }
       else{
