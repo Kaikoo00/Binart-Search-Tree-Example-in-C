@@ -53,7 +53,7 @@ void addValue(int value){
     if(curr->x > value){
       curr=curr->lower;
       if(curr == NULL){
-        parent->lower = newnode; parent->lower->greater = NULL; parent->lower->lower = NULL;
+        parent->lower = newnode;
         data_count++;
         return;
       }
@@ -61,7 +61,7 @@ void addValue(int value){
     else{
       curr = curr->greater;
       if(curr==NULL){
-        parent->greater = newnode; parent->greater->lower = NULL; parent->greater->greater = NULL;
+        parent->greater = newnode;
         data_count++;
         return;
       }
